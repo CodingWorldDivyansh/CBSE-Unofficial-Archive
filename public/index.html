@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Class 12 Past Papers (2015-2025)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: #475569;
+        }
+        
+        .light-mode {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #cbd5e1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--accent);
+        }
+        
+        .stats-bar {
+            background: var(--bg-secondary);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .stat-card {
+            background: var(--bg-tertiary);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .sidebar {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        
+        .filter-section h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .filter-select, .filter-input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .filter-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        
+        .filter-btn:hover {
+            background: var(--accent-hover);
+        }
+        
+        .filter-btn.secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .filter-btn.secondary:hover {
+            background: var(--border);
+        }
+        
+        .papers-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .papers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .papers-count {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .papers-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+        
+        .action-btn.primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .action-btn.primary:hover {
+            background: var(--accent-hover);
+        }
+        
+        .action-btn.primary:disabled {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        
+        .action-btn.outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .action-btn.outline:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .papers-grid {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .paper-card {
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 15px;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .paper-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .paper-checkbox {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+        
+        .paper-info {
+            min-width: 0;
+        }
+        
+        .paper-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .paper-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .paper-tag {
+            background: var(--bg-secondary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .paper-tag.year {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .paper-tag.subject {
+            background: var(--success);
+            color: white;
+        }
+        
+        .paper-download {
+            padding: 10px 16px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        
+        .paper-download:hover {
+            background: var(--accent-hover);
+        }
+        
+        .paper-download:disabled {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-tertiary);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .no-results-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .page-btn {
+            padding: 8px 14px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .page-btn:hover:not(:disabled) {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .toast.show {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+        
+        .toast.error {
+            border-left: 4px solid var(--danger);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .download-progress {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+            min-width: 300px;
+        }
+        
+        .download-progress.show {
+            display: block;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        @media (max-width: 600px) {
+            .paper-card {
+                grid-template-columns: auto 1fr;
+            }
+            
+            .paper-download {
+                grid-column: 1 / -1;
+                justify-self: stretch;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">📚</div>
+                    <h1>CBSE <span>Papers</span></h1>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" onclick="toggleTheme()">
+                        <span id="theme-icon">🌙</span>
+                        <span id="theme-text">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-papers">0</div>
+                    <div class="stat-label">Total Papers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-subjects">6</div>
+                    <div class="stat-label">Subjects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-years">11</div>
+                    <div class="stat-label">Years (2015-2025)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="selected-count">0</div>
+                    <div class="stat-label">Selected</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <main class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <h3>Search</h3>
+                    <input type="text" class="filter-input" id="search-input" placeholder="Search papers...">
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Year</h3>
+                    <select class="filter-select" id="year-filter">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Subject</h3>
+                    <select class="filter-select" id="subject-filter">
+                        <option value="">All Subjects</option>
+                    </select>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Region</h3>
+                    <select class="filter-select" id="region-filter">
+                        <option value="">All Regions</option>
+                    </select>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Paper Type</h3>
+                    <select class="filter-select" id="type-filter">
+                        <option value="">All Types</option>
+                    </select>
+                </div>
+                
+                <div class="filter-section">
+                    <h3>Set</h3>
+                    <select class="filter-select" id="set-filter">
+                        <option value="">All Sets</option>
+                    </select>
+                </div>
+                
+                <button class="filter-btn" onclick="applyFilters()">Apply Filters</button>
+                <button class="filter-btn secondary" onclick="resetFilters()">Reset Filters</button>
+            </aside>
+            
+            <section class="papers-section">
+                <div class="papers-header">
+                    <div class="papers-count">
+                        Showing <span id="showing-count">0</span> papers
+                    </div>
+                    <div class="papers-actions">
+                        <button class="action-btn outline" onclick="selectAll()">
+                            ☑️ Select All Filtered
+                        </button>
+                        <button class="action-btn outline" onclick="deselectAll()">
+                            ⬜ Deselect All
+                        </button>
+                        <button class="action-btn primary" id="download-selected-btn" onclick="downloadSelected()" disabled>
+                            📦 Download Selected as ZIP
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="papers-grid" id="papers-grid">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading papers...</p>
+                    </div>
+                </div>
+                
+                <div class="pagination" id="pagination"></div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <p>CBSE Class 12 Past Papers Archive (2015-2025) | For Personal Educational Use Only</p>
+        <p>Subjects: Accountancy, Business Studies, Data Science, Economics, English, Mathematics</p>
+    </footer>
+    
+    <div class="toast" id="toast"></div>
+    
+    <div class="download-progress" id="download-progress">
+        <div>Preparing download...</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+    </div>
+    
+    <script>
+        let allPapers = [];
+        let filteredPapers = [];
+        let selectedPapers = new Set();
+        let currentPage = 1;
+        const papersPerPage = 20;
+        
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
+            document.getElementById('theme-text').textContent = isLight ? 'Light Mode' : 'Dark Mode';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        }
+        
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'light') {
+            toggleTheme();
+        }
+        
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast show ${type}`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        
+        // Fetch papers from API
+        async function fetchPapers() {
+            try {
+                const response = await fetch('/api/papers');
+                const data = await response.json();
+                allPapers = data.papers;
+                filteredPapers = [...allPapers];
+                document.getElementById('total-papers').textContent = allPapers.length;
+                renderPapers();
+                loadFilters();
+            } catch (error) {
+                console.error('Error fetching papers:', error);
+                document.getElementById('papers-grid').innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">❌</div>
+                        <p>Failed to load papers. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Load filter options
+        async function loadFilters() {
+            try {
+                const response = await fetch('/api/filters');
+                const filters = await response.json();
+                
+                populateSelect('year-filter', filters.years);
+                populateSelect('subject-filter', filters.subjects);
+                populateSelect('region-filter', filters.regions);
+                populateSelect('type-filter', filters.types);
+                populateSelect('set-filter', filters.sets);
+            } catch (error) {
+                console.error('Error loading filters:', error);
+            }
+        }
+        
+        function populateSelect(id, options) {
+            const select = document.getElementById(id);
+            const firstOption = select.options[0];
+            select.innerHTML = '';
+            select.appendChild(firstOption);
+            
+            options.forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt;
+                option.textContent = opt;
+                select.appendChild(option);
+            });
+        }
+        
+        // Apply filters
+        function applyFilters() {
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const year = document.getElementById('year-filter').value;
+            const subject = document.getElementById('subject-filter').value;
+            const region = document.getElementById('region-filter').value;
+            const type = document.getElementById('type-filter').value;
+            const set = document.getElementById('set-filter').value;
+            
+            filteredPapers = allPapers.filter(paper => {
+                if (search && !paper.title.toLowerCase().includes(search) && 
+                    !paper.subject.toLowerCase().includes(search)) return false;
+                if (year && paper.year !== parseInt(year)) return false;
+                if (subject && paper.subject !== subject) return false;
+                if (region && paper.region !== region) return false;
+                if (type && paper.type !== type) return false;
+                if (set && paper.set !== set) return false;
+                return true;
+            });
+            
+            currentPage = 1;
+            renderPapers();
+        }
+        
+        // Reset filters
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('year-filter').value = '';
+            document.getElementById('subject-filter').value = '';
+            document.getElementById('region-filter').value = '';
+            document.getElementById('type-filter').value = '';
+            document.getElementById('set-filter').value = '';
+            
+            filteredPapers = [...allPapers];
+            currentPage = 1;
+            renderPapers();
+        }
+        
+        // Render papers
+        function renderPapers() {
+            const grid = document.getElementById('papers-grid');
+            const start = (currentPage - 1) * papersPerPage;
+            const end = start + papersPerPage;
+            const pagePapers = filteredPapers.slice(start, end);
+            
+            document.getElementById('showing-count').textContent = filteredPapers.length;
+            
+            if (pagePapers.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">📭</div>
+                        <p>No papers found matching your criteria.</p>
+                    </div>
+                `;
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+            
+            grid.innerHTML = pagePapers.map(paper => `
+                <div class="paper-card">
+                    <input type="checkbox" class="paper-checkbox" 
+                           data-id="${paper.id}" 
+                           ${selectedPapers.has(paper.id) ? 'checked' : ''}
+                           onchange="toggleSelection('${paper.id}')">
+                    <div class="paper-info">
+                        <div class="paper-title">${paper.title}</div>
+                        <div class="paper-meta">
+                            <span class="paper-tag year">${paper.year}</span>
+                            <span class="paper-tag subject">${paper.subject}</span>
+                            <span class="paper-tag">${paper.type}</span>
+                            ${paper.region ? `<span class="paper-tag">${paper.region}</span>` : ''}
+                            ${paper.set ? `<span class="paper-tag">Set ${paper.set}</span>` : ''}
+                        </div>
+                    </div>
+                    <button class="paper-download" onclick="downloadPaper('${paper.id}')">
+                        ⬇️ Download
+                    </button>
+                </div>
+            `).join('');
+            
+            renderPagination();
+        }
+        
+        // Render pagination
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredPapers.length / papersPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = `
+                <button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    ← Prev
+                </button>
+            `;
+            
+            const maxVisible = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            
+            if (endPage - startPage < maxVisible - 1) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+            
+            if (startPage > 1) {
+                html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) html += `<span>...</span>`;
+            }
+            
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += `<span>...</span>`;
+                html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+            
+            html += `
+                <button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next →
+                </button>
+            `;
+            
+            pagination.innerHTML = html;
+        }
+        
+        function goToPage(page) {
+            const totalPages = Math.ceil(filteredPapers.length / papersPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderPapers();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Selection handling
+        function toggleSelection(id) {
+            if (selectedPapers.has(id)) {
+                selectedPapers.delete(id);
+            } else {
+                selectedPapers.add(id);
+            }
+            updateSelectedCount();
+        }
+        
+        function selectAll() {
+            filteredPapers.forEach(paper => selectedPapers.add(paper.id));
+            renderPapers();
+            updateSelectedCount();
+            showToast(`Selected ${filteredPapers.length} papers`);
+        }
+        
+        function deselectAll() {
+            selectedPapers.clear();
+            renderPapers();
+            updateSelectedCount();
+            showToast('Deselected all papers');
+        }
+        
+        function updateSelectedCount() {
+            const count = selectedPapers.size;
+            document.getElementById('selected-count').textContent = count;
+            document.getElementById('download-selected-btn').disabled = count === 0;
+        }
+        
+        // Download single paper
+        async function downloadPaper(id) {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '⏳ Loading...';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch(`/api/download/${id}`);
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Download failed');
+                }
+                
+                const blob = await response.blob();
+                const filename = response.headers.get('Content-Disposition')?.match(/filename="(.+)"/)?.[1] || 'paper.pdf';
+                
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+                
+                showToast('Download started!');
+            } catch (error) {
+                console.error('Download error:', error);
+                showToast(error.message || 'Download failed', 'error');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+        
+        // Download selected as ZIP
+        async function downloadSelected() {
+            if (selectedPapers.size === 0) {
+                showToast('No papers selected', 'error');
+                return;
+            }
+            
+            const progressDiv = document.getElementById('download-progress');
+            const progressFill = document.getElementById('progress-fill');
+            progressDiv.classList.add('show');
+            progressFill.style.width = '10%';
+            
+            try {
+                const response = await fetch('/api/download-zip', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids: Array.from(selectedPapers) })
+                });
+                
+                progressFill.style.width = '50%';
+                
+                if (!response.ok) {
+                    throw new Error('Failed to create ZIP');
+                }
+                
+                const blob = await response.blob();
+                progressFill.style.width = '90%';
+                
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'CBSE_Papers.zip';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+                
+                progressFill.style.width = '100%';
+                showToast(`Downloaded ${selectedPapers.size} papers as ZIP!`);
+            } catch (error) {
+                console.error('ZIP download error:', error);
+                showToast('Failed to download ZIP', 'error');
+            } finally {
+                setTimeout(() => {
+                    progressDiv.classList.remove('show');
+                    progressFill.style.width = '0%';
+                }, 1000);
+            }
+        }
+        
+        // Search on enter
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') applyFilters();
+        });
+        
+        // Initialize
+        fetchPapers();
+    </script>
+</body>
+</html>

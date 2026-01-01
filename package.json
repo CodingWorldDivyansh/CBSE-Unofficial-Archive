@@ -1,0 +1,21 @@
+{
+  "name": "cbse-papers-website",
+  "version": "1.0.0",
+  "description": "CBSE Class 12 Past Papers (2015-2025) Download Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test-papers.js"
+  },
+  "keywords": ["cbse", "past-papers", "class-12", "education"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "axios": "^1.13.2",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "pdf-parse": "^2.4.5"
+  }
+}
