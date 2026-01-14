@@ -298,6 +298,61 @@
             display: grid;
             gap: 12px;
         }
+
+        .ncert-book {
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .ncert-book-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .ncert-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .ncert-link {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ncert-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        details {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .ncert-chapters {
+            margin-top: 10px;
+            display: grid;
+            gap: 8px;
+        }
         
         .paper-card {
             background: var(--bg-tertiary);
@@ -642,7 +697,7 @@
                     <div class="papers-count">
                         Showing <span id="showing-count">0</span> papers
                     </div>
-                    <div class="papers-actions">
+                    <div class="papers-actions" id="papers-actions">
                         <button class="action-btn outline" onclick="selectAll()">
                             ☑️ Select All Filtered
                         </button>
@@ -654,6 +709,8 @@
                         </button>
                     </div>
                 </div>
+
+                <div id="ncert-view" style="display:none"></div>
                 
                 <div class="papers-grid" id="papers-grid">
                     <div class="loading">
@@ -709,6 +766,22 @@
             toast.className = `toast show ${type}`;
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
+
+        function isNcertMode() {
+            return document.getElementById('type-filter').value === 'NCERT';
+        }
+
+        function showNormalUI() {
+            document.getElementById('ncert-view').style.display = 'none';
+            document.getElementById('papers-actions').style.display = 'flex';
+            document.getElementById('pagination').style.display = 'flex';
+        }
+
+        function showNcertUI() {
+            document.getElementById('ncert-view').style.display = 'block';
+            document.getElementById('papers-actions').style.display = 'none';
+            document.getElementById('pagination').style.display = 'none';
+        }
         
         // Fetch papers from API
         async function fetchPapers() {
@@ -742,6 +815,15 @@
                 populateSelect('region-filter', filters.regions);
                 populateSelect('type-filter', filters.types);
                 populateSelect('set-filter', filters.sets);
+
+                // Add NCERT as an extra option without affecting existing types
+                const typeSelect = document.getElementById('type-filter');
+                if (![...typeSelect.options].some(o => o.value === 'NCERT')) {
+                    const option = document.createElement('option');
+                    option.value = 'NCERT';
+                    option.textContent = 'NCERT';
+                    typeSelect.appendChild(option);
+                }
             } catch (error) {
                 console.error('Error loading filters:', error);
             }
@@ -760,9 +842,123 @@
                 select.appendChild(option);
             });
         }
+
+        async function renderNCERT() {
+            showNcertUI();
+
+            const grid = document.getElementById('papers-grid');
+            const ncertView = document.getElementById('ncert-view');
+            const subject = document.getElementById('subject-filter').value;
+
+            // Reset papers selection state to avoid confusion
+            selectedPapers.clear();
+            updateSelectedCount();
+
+            document.getElementById('showing-count').textContent = 0;
+            grid.innerHTML = '';
+
+            if (!subject) {
+                ncertView.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">📘</div>
+                        <p>Select a subject, keep Paper Type = NCERT, then click Apply Filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            ncertView.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading NCERT resources for ${subject}...</p>
+                </div>
+            `;
+
+            try {
+                const resp = await fetch(`/api/ncert?subject=${encodeURIComponent(subject)}`);
+                if (!resp.ok) {
+                    throw new Error('NCERT subject not available');
+                }
+                const data = await resp.json();
+
+                const books = data.books || [];
+                document.getElementById('showing-count').textContent = books.length;
+
+                ncertView.innerHTML = books.map(book => {
+                    const wholeId = book.whole?.id;
+                    const chapters = Array.isArray(book.chapters) ? book.chapters : [];
+
+                    return `
+                        <div class="ncert-book">
+                            <div class="ncert-book-title">${book.title}</div>
+                            <div class="ncert-actions">
+                                ${wholeId ? `<a class="ncert-link" href="#" onclick="downloadNcert('${wholeId}'); return false;">⬇️ Download full book</a>` : ''}
+                            </div>
+                            ${chapters.length ? `
+                                <details>
+                                    <summary>Chapter-wise downloads (${chapters.length})</summary>
+                                    <div class="ncert-chapters">
+                                        ${chapters.map(ch => `
+                                            <a class="ncert-link" href="#" onclick="downloadNcert('${ch.id}'); return false;">⬇️ ${ch.title}</a>
+                                        `).join('')}
+                                    </div>
+                                </details>
+                            ` : '<div style="color: var(--text-secondary); font-size: 0.9rem;">(No chapter-wise PDFs for this resource)</div>'}
+                        </div>
+                    `;
+                }).join('');
+
+                showToast(`Loaded NCERT for ${subject}`);
+            } catch (e) {
+                console.error(e);
+                ncertView.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">❌</div>
+                        <p>Failed to load NCERT resources for ${subject}.</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function downloadNcert(id) {
+            showToast('Preparing download...');
+
+            try {
+                const response = await fetch(`/api/ncert/download/${id}`);
+
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({}));
+                    throw new Error(error.error || 'Download failed');
+                }
+
+                const blob = await response.blob();
+                const filename = response.headers.get('Content-Disposition')?.match(/filename="(.+)"/)?.[1] || 'ncert.pdf';
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+
+                showToast('Download started!');
+            } catch (error) {
+                console.error('NCERT download error:', error);
+                showToast(error.message || 'Download failed', 'error');
+            }
+        }
         
         // Apply filters
         function applyFilters() {
+            if (isNcertMode()) {
+                renderNCERT();
+                return;
+            }
+
+            showNormalUI();
+
             const search = document.getElementById('search-input').value.toLowerCase();
             const year = document.getElementById('year-filter').value;
             const subject = document.getElementById('subject-filter').value;
@@ -793,6 +989,8 @@
             document.getElementById('region-filter').value = '';
             document.getElementById('type-filter').value = '';
             document.getElementById('set-filter').value = '';
+
+            showNormalUI();
             
             filteredPapers = [...allPapers];
             currentPage = 1;
@@ -801,6 +999,8 @@
         
         // Render papers
         function renderPapers() {
+            showNormalUI();
+
             const grid = document.getElementById('papers-grid');
             const start = (currentPage - 1) * papersPerPage;
             const end = start + papersPerPage;

@@ -26,6 +26,285 @@ const isPDF = (buffer) => {
     return buffer[0] === 0x25 && buffer[1] === 0x50 && buffer[2] === 0x44 && buffer[3] === 0x46;
 };
 
+// --------------------
+// NCERT / Class 12 resources (hardcoded)
+// --------------------
+
+const googleDriveDirectDownload = (fileId) => `https://drive.google.com/uc?export=download&id=${fileId}`;
+
+const makeNcertChapters = ({ baseCode, count, subject, bookTitle, idPrefix }) => {
+    const chapters = [];
+    for (let i = 1; i <= count; i++) {
+        const two = String(i).padStart(2, '0');
+        const id = `${idPrefix}_ch${two}`;
+        chapters.push({
+            id,
+            title: `Chapter ${i}`,
+            url: `https://ncert.nic.in/textbook/pdf/${baseCode}${two}.pdf`,
+            filename: `${subject}_${bookTitle.replace(/\s+/g, '_')}_Chapter_${two}.pdf`
+        });
+    }
+    return chapters;
+};
+
+const NCERT_DB = {
+    "English": {
+        subject: "English",
+        books: [
+            {
+                id: "english_flamingo",
+                title: "Flamingo (Core)",
+                whole: {
+                    id: "english_flamingo_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/lefl1ps.pdf",
+                    filename: "English_Flamingo_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'lefl1', count: 14, subject: 'English', bookTitle: 'Flamingo', idPrefix: 'english_flamingo' })
+            },
+            {
+                id: "english_vistas",
+                title: "Vistas (Supplementary Reader)",
+                whole: {
+                    id: "english_vistas_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/levt1ps.pdf",
+                    filename: "English_Vistas_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'levt1', count: 8, subject: 'English', bookTitle: 'Vistas', idPrefix: 'english_vistas' })
+            }
+        ]
+    },
+
+    "Mathematics": {
+        subject: "Mathematics",
+        books: [
+            {
+                id: "maths_part1",
+                title: "Mathematics Part I",
+                whole: {
+                    id: "maths_part1_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/lemh1ps.pdf",
+                    filename: "Mathematics_Part_I_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'lemh1', count: 6, subject: 'Mathematics', bookTitle: 'Maths_Part_I', idPrefix: 'maths_part1' })
+            },
+            {
+                id: "maths_part2",
+                title: "Mathematics Part II",
+                whole: {
+                    id: "maths_part2_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/lemh2ps.pdf",
+                    filename: "Mathematics_Part_II_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'lemh2', count: 7, subject: 'Mathematics', bookTitle: 'Maths_Part_II', idPrefix: 'maths_part2' })
+            }
+        ]
+    },
+
+    "Accountancy": {
+        subject: "Accountancy",
+        books: [
+            {
+                id: "acc_part1",
+                title: "Accountancy Part I",
+                whole: {
+                    id: "acc_part1_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/leac1ps.pdf",
+                    filename: "Accountancy_Part_I_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'leac1', count: 5, subject: 'Accountancy', bookTitle: 'Accountancy_Part_I', idPrefix: 'acc_part1' })
+            },
+            {
+                id: "acc_part2",
+                title: "Accountancy Part II",
+                whole: {
+                    id: "acc_part2_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/leac2ps.pdf",
+                    filename: "Accountancy_Part_II_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'leac2', count: 6, subject: 'Accountancy', bookTitle: 'Accountancy_Part_II', idPrefix: 'acc_part2' })
+            }
+        ]
+    },
+
+    "Economics": {
+        subject: "Economics",
+        books: [
+            {
+                id: "eco_ied",
+                title: "Indian Economic Development",
+                whole: {
+                    id: "eco_ied_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/keec1ps.pdf",
+                    filename: "Economics_Indian_Economic_Development_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'keec1', count: 8, subject: 'Economics', bookTitle: 'Indian_Economic_Development', idPrefix: 'eco_ied' })
+            },
+            {
+                id: "eco_macro",
+                title: "Introductory Macroeconomics",
+                whole: {
+                    id: "eco_macro_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/leec1ps.pdf",
+                    filename: "Economics_Introductory_Macroeconomics_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'leec1', count: 6, subject: 'Economics', bookTitle: 'Introductory_Macroeconomics', idPrefix: 'eco_macro' })
+            }
+        ]
+    },
+
+    "Business Studies": {
+        subject: "Business Studies",
+        books: [
+            {
+                id: "bst_part1",
+                title: "Business Studies Part I",
+                whole: {
+                    id: "bst_part1_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/lebs1ps.pdf",
+                    filename: "Business_Studies_Part_I_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'lebs1', count: 8, subject: 'Business Studies', bookTitle: 'Business_Studies_Part_I', idPrefix: 'bst_part1' })
+            },
+            {
+                id: "bst_part2",
+                title: "Business Studies Part II",
+                whole: {
+                    id: "bst_part2_whole",
+                    url: "https://ncert.nic.in/textbook/pdf/lebs2ps.pdf",
+                    filename: "Business_Studies_Part_II_Full.pdf"
+                },
+                chapters: makeNcertChapters({ baseCode: 'lebs2', count: 4, subject: 'Business Studies', bookTitle: 'Business_Studies_Part_II', idPrefix: 'bst_part2' })
+            }
+        ]
+    },
+
+    "Data Science": {
+        subject: "Data Science",
+        books: [
+            {
+                id: "ds_microsoft_student_handbook",
+                title: "Data Science (Microsoft / CBSE) Student Handbook",
+                whole: {
+                    id: "ds_microsoft_student_handbook_whole",
+                    url: "https://cbseacademic.nic.in/web_material/codeingDS/classXII_DS_Student_Handbook.pdf",
+                    filename: "Data_Science_Microsoft_Student_Handbook.pdf"
+                },
+                chapters: []
+            },
+            {
+                id: "ds_microsoft_teacher_handbook",
+                title: "Data Science (Microsoft / CBSE) Teacher Handbook",
+                whole: {
+                    id: "ds_microsoft_teacher_handbook_whole",
+                    url: "https://cbseacademic.nic.in/web_material/codeingDS/classXII_DS_Teacher_Handbook.pdf",
+                    filename: "Data_Science_Microsoft_Teacher_Handbook.pdf"
+                },
+                chapters: []
+            },
+            {
+                id: "ds_google_drive_book",
+                title: "Data Science (Provided PDF)",
+                whole: {
+                    id: "ds_google_drive_book_whole",
+                    url: googleDriveDirectDownload('1auNmPmWRHfhCYTtZ3nTk33YF99p1AFB9'),
+                    filename: "Data_Science_Provided.pdf"
+                },
+                chapters: []
+            },
+            {
+                id: "ds_employability_skills",
+                title: "Employability Skills (Class XII)",
+                whole: {
+                    id: "ds_employability_skills_whole",
+                    url: "https://cbseacademic.nic.in/web_material/Curriculum21/publication/srsec/Employability_Skills_XII.pdf",
+                    filename: "Employability_Skills_Class_XII.pdf"
+                },
+                chapters: []
+            }
+        ]
+    }
+};
+
+const NCERT_INDEX = (() => {
+    const index = {};
+    Object.values(NCERT_DB).forEach(subject => {
+        subject.books.forEach(book => {
+            if (book.whole?.id) {
+                index[book.whole.id] = {
+                    url: book.whole.url,
+                    filename: book.whole.filename || `${book.title.replace(/\s+/g, '_')}.pdf`
+                };
+            }
+            (book.chapters || []).forEach(ch => {
+                index[ch.id] = {
+                    url: ch.url,
+                    filename: ch.filename || `${book.title.replace(/\s+/g, '_')}_${ch.title.replace(/\s+/g, '_')}.pdf`
+                };
+            });
+        });
+    });
+    return index;
+})();
+
+// API: List NCERT resources
+app.get('/api/ncert', (req, res) => {
+    const { subject } = req.query;
+
+    if (!subject) {
+        return res.json({
+            subjects: Object.keys(NCERT_DB).sort()
+        });
+    }
+
+    const entry = NCERT_DB[subject];
+    if (!entry) {
+        return res.status(404).json({ error: 'Subject not found' });
+    }
+
+    return res.json(entry);
+});
+
+// API: Download NCERT item (proxied)
+app.get('/api/ncert/download/:id', async (req, res) => {
+    const item = NCERT_INDEX[req.params.id];
+
+    if (!item) {
+        return res.status(404).json({ error: 'NCERT item not found' });
+    }
+
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: item.url,
+            responseType: 'arraybuffer',
+            timeout: 60000,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/pdf,*/*',
+                'Referer': new URL(item.url).origin
+            },
+            maxRedirects: 5
+        });
+
+        const buffer = Buffer.from(response.data);
+
+        if (!isPDF(buffer)) {
+            return res.status(400).json({ error: 'Invalid PDF file received from source' });
+        }
+
+        const filename = item.filename || 'ncert.pdf';
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+        res.setHeader('Content-Length', buffer.length);
+        res.send(buffer);
+
+    } catch (error) {
+        console.error(`NCERT download error for ${req.params.id}:`, error.message);
+        res.status(500).json({ error: 'Failed to download PDF', details: error.message });
+    }
+});
+
 // API: Get all papers with optional filters
 app.get('/api/papers', (req, res) => {
     let filtered = [...papersDB];
