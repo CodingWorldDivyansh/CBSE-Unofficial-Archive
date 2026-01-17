@@ -403,6 +403,17 @@ app.post('/api/download-zip', async (req, res) => {
     
     const archive = archiver('zip', { zlib: { level: 5 } });
     archive.pipe(res);
+
+    const failedTitles = [];
+    const failedTitleSet = new Set();
+
+    const markFailed = (paper) => {
+        const title = paper?.title;
+        if (!title) return;
+        if (failedTitleSet.has(title)) return;
+        failedTitleSet.add(title);
+        failedTitles.push(title);
+    };
     
     for (const paper of papers) {
         try {
@@ -424,11 +435,17 @@ app.post('/api/download-zip', async (req, res) => {
             if (isPDF(buffer)) {
                 const filename = `${paper.subject}/${paper.year}_${paper.type}${paper.set ? '_Set' + paper.set : ''}${paper.region ? '_' + paper.region : ''}.pdf`;
                 archive.append(buffer, { name: filename });
+            } else {
+                markFailed(paper);
             }
         } catch (error) {
             console.error(`Failed to add ${paper.id} to ZIP:`, error.message);
+            markFailed(paper);
         }
     }
+
+    // Add failed.txt (titles only, one per line)
+    archive.append(failedTitles.join('\n') + (failedTitles.length ? '\n' : ''), { name: 'failed.txt' });
     
     archive.finalize();
 });
