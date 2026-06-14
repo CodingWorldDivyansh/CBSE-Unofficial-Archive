@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: cbse-unofficial-archive
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+    headers:
+      - path: /css/*
+        name: Cache-Control
+        value: public, max-age=31536000
+      - path: /js/*
+        name: Cache-Control
+        value: public, max-age=31536000
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000

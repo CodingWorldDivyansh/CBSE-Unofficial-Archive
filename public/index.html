@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBSE Unofficial Archive — Free Class 12 Question Papers & Marking Schemes (2015–2026)</title>
+  <meta name="description" content="Download every CBSE Class 12 question paper, marking scheme, sample paper, and compartment paper from 2015 to 2026. All sets, all regions. Free, no login required.">
+  <meta name="keywords" content="CBSE, Class 12, question papers, marking scheme, previous year papers, accountancy, business studies, economics, download, PDF, 2024, 2025">
+  
+  <!-- SEO Open Graph -->
+  <meta property="og:title" content="CBSE Unofficial Archive — Free Class 12 Commerce Question Papers">
+  <meta property="og:description" content="Every CBSE Class 12 Commerce paper from 2015–2026. All sets. All regions. Free downloads, no login.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- HEADER / HERO -->
+  <header class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-badge">📚 Unofficial Archive</div>
+      <h1 class="hero-title">CBSE <span class="gradient-text">Unofficial</span> Archive</h1>
+      <p class="hero-subtitle">Every paper. Every set. Every region. 2015–2026.</p>
+      <p class="hero-description">Download CBSE Class 12 Commerce question papers, marking schemes, sample papers, and compartment papers — completely free, no login required.</p>
+      <div class="stats-row" id="stats-row">
+        <!-- Dynamically populated: total papers, subjects, years -->
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total-papers">-</div>
+          <div class="stat-label">Total Papers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-subjects">3</div>
+          <div class="stat-label">Commerce Subjects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-years">12</div>
+          <div class="stat-label">Years Covered</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FILTER BAR (sticky) -->
+  <section class="filter-section" id="filter-section">
+    <div class="container">
+      <div class="filter-bar" id="filter-bar">
+        <div class="filter-group">
+          <label for="filter-subject">Subject</label>
+          <select id="filter-subject" aria-label="Filter by subject">
+            <option value="">All Subjects</option>
+            <option value="Accountancy">Accountancy</option>
+            <option value="Business Studies">Business Studies</option>
+            <option value="Economics">Economics</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-year">Year</label>
+          <select id="filter-year" aria-label="Filter by exam year">
+            <option value="">All Years</option>
+            <!-- Dynamically populated -->
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-region">Region</label>
+          <select id="filter-region" aria-label="Filter by region">
+            <option value="">All Regions</option>
+            <option value="Delhi">Delhi</option>
+            <option value="All India">All India / Outside Delhi</option>
+            <option value="Foreign">Foreign / Abroad</option>
+            <option value="All Regions">All Regions (Sample Papers)</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-type">Type</label>
+          <select id="filter-type" aria-label="Filter by paper type">
+            <option value="">All Types</option>
+            <option value="Question Paper">Question Paper</option>
+            <option value="Marking Scheme">Marking Scheme</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-exam">Exam</label>
+          <select id="filter-exam" aria-label="Filter by exam category">
+            <option value="">All Exams</option>
+            <option value="Main">Main Board Exam</option>
+            <option value="Compartment">Compartment</option>
+            <option value="Sample">Sample Paper</option>
+          </select>
+        </div>
+        <div class="filter-group filter-search">
+          <label for="filter-search-input">Search</label>
+          <input type="text" id="filter-search-input" placeholder="Search by code, set or notes..." autocomplete="off" aria-label="Search papers">
+        </div>
+      </div>
+      <div class="filter-actions">
+        <button class="btn btn-ghost" id="btn-clear-filters" aria-label="Clear all filters">Clear Filters</button>
+        <button class="btn btn-outline" id="btn-select-all" aria-label="Select all matching papers">Select All Visible</button>
+        <button class="btn btn-outline" id="btn-deselect-all" style="display:none;" aria-label="Deselect all papers">Deselect All</button>
+        <span class="results-count" id="results-count">0 papers found</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2021 COVID NOTICE (shown when 2021 is filtered) -->
+  <div class="notice notice-warning" id="notice-2021" style="display:none;" role="alert">
+    <div class="container">
+      <strong>⚠️ 2021 — Exams Cancelled:</strong> CBSE Class 12 board exams were fully cancelled in 2021 due to the COVID-19 pandemic. No board examination question papers exist. Results were based on internal assessments. Only sample papers for the 2020-21 session are available.
+    </div>
+  </div>
+
+  <!-- PAPER GRID -->
+  <main class="papers-section" id="papers-section">
+    <div class="container">
+      <div class="papers-grid" id="papers-grid" role="list">
+        <!-- Dynamically rendered paper cards -->
+      </div>
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="empty-icon">📭</div>
+        <h3>No papers found</h3>
+        <p>Try adjusting your filters or search query.</p>
+      </div>
+      <div class="loading-state" id="loading-state">
+        <!-- Skeleton cards -->
+      </div>
+    </div>
+  </main>
+
+  <!-- FLOATING DOWNLOAD BAR -->
+  <div class="download-bar" id="download-bar">
+    <div class="container download-bar-inner">
+      <div class="download-info">
+        <span class="download-count" id="download-count">0</span>
+        <span> papers selected</span>
+      </div>
+      <div class="download-actions">
+        <button class="btn btn-ghost" id="btn-clear-selection" aria-label="Clear selection">Clear</button>
+        <button class="btn btn-primary btn-download" id="btn-download" aria-label="Download selected papers">
+          <span class="btn-download-text">Download</span>
+          <span class="btn-download-loading" style="display:none;">
+            <span class="spinner"></span> Preparing...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-disclaimer">
+        <strong>Disclaimer:</strong> This is an unofficial archive and is NOT affiliated with, endorsed by, or connected to the Central Board of Secondary Education (CBSE) in any way.
+        All question papers and marking schemes are the intellectual property of CBSE. This site is created purely for educational purposes to help students access study materials.
+      </p>
+      <p class="footer-info">
+        Papers sourced from CBSE official website and publicly available educational resources.
+        If you are a rights holder and wish to have any content removed, please contact us.
+      </p>
+      <p class="footer-credits">
+        Built with ❤️ for CBSE students everywhere.
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="/js/filters.js" defer></script>
+  <script src="/js/renderer.js" defer></script>
+  <script src="/js/selection.js" defer></script>
+  <script src="/js/download.js" defer></script>
+  <script src="/js/app.js" defer></script>
+</body>
+</html>
